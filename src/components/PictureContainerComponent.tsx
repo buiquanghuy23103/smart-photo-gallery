@@ -4,10 +4,8 @@ type PictureContainerProps = {
     shouldShowPicture: boolean
 };
 
-const PictureContainer: React.FunctionComponent<PictureContainerProps> = (props: PictureContainerProps) => {
+export default function PictureContainer(props: PictureContainerProps) {
     if (!props.shouldShowPicture) return null;
 
     return (<Picture/>);
 }
-
-export default PictureContainer;

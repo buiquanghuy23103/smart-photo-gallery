@@ -1,8 +1,22 @@
-type PictureProps = {
-    
-};
+import { useEffect, useState } from "react";
 
-const Picture: React.FunctionComponent<PictureProps> = (props: PictureProps) => {
+export default function Picture() {
+
+    
+    useEffect(() => {
+        console.log("ImageComponent mounted");
+        
+        const interval = window.setInterval(() => {
+            console.log("Counting");
+        }, 1000);
+
+        return () => {
+            console.log("ImageComponent unmounted");
+            window.clearInterval(interval);
+            console.log("Clear interval");
+            
+        };
+    }, []);
 
     return (
         <div>
@@ -10,5 +24,3 @@ const Picture: React.FunctionComponent<PictureProps> = (props: PictureProps) => 
         </div>
     );
 }
-
-export default Picture;
