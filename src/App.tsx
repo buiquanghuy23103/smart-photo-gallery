@@ -2,7 +2,7 @@ import React, { ChangeEventHandler, useEffect, useRef, useState } from 'react';
 import './App.css';
 import Picture from './components/PictureComponent';
 
-function App() {
+function App(): JSX.Element {
 
   const initialPictureLinkList: Array<string> = [
     "https://images.unsplash.com/photo-1532298229144-0ec0c57515c7?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1308&q=80",
@@ -19,16 +19,18 @@ function App() {
     if (!!newPictureLink) {
       setPictureLinkList([...pictureLinkList, newPictureLink]);
     }
-    
+
   };
 
-  const changePictureLink = (newLink: string) => {
+  function changePictureLink(newLink: string) {
     setNewPictureLink(newLink);
   }
 
   const pictureList = pictureLinkList.map(link => (
     <Picture pictureLink={ link } description={ "bycicle" } width={ 150 } />
   ));
+
+  const disableAttr = newPictureLink !== "" ? "bg-green-600" : "bg-green-300";
 
   return (
     <section className="flex justify-center">
@@ -47,7 +49,8 @@ function App() {
               className="p-2 border border-gray-800 shadow rounded"
               onChange={ (e) => changePictureLink(e.target.value) } />
             <button
-              className="p-2 bg-green-600 text-white"
+              disabled={ newPictureLink === "" }
+              className={ `p-2 text-white ${disableAttr}` }
               onClick={ () => addPicture() }>Add picture</button>
           </div>
         </section>
