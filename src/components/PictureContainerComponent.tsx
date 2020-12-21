@@ -1,4 +1,4 @@
-import Picture from "./PictureComponent";
+import PictureList from "./PictureListComponent";
 
 type PictureContainerProps = {
     shouldShowPicture: boolean
@@ -7,5 +7,5 @@ type PictureContainerProps = {
 export default function PictureContainer(props: PictureContainerProps) {
     if (!props.shouldShowPicture) return null;
 
-    return (<Picture/>);
+    return (<PictureList/>);
 }
