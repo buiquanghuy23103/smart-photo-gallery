@@ -1,16 +1,18 @@
+import { Picture } from "../App";
+
 type PictureProps = {
-    pictureLink: string,
-    description: string,
-    width: number
+    picture: Picture,
+    onClick: () => void
 };
 
-export default function Picture(props: PictureProps) {
+export default function PictureComp(props: PictureProps) {
     return (
-        <div>
+        <div className="w-1/3">
             <img
-                src={ props.pictureLink }
-                alt={ props.description }
-                width={ props.width }
+                src={ props.picture.url }
+                alt={ props.picture.description }
+                width={ props.picture.width }
+                onClick={ () => props.onClick() }
             />
         </div>
     )
