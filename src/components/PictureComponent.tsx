@@ -5,7 +5,7 @@ type PictureProps = {
     onClick: () => void
 };
 
-export default function PictureComp(props: PictureProps) {
+export default function PictureComponent(props: PictureProps) {
     return (
         <div className="w-1/3">
             <img

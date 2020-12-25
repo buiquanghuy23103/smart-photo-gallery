@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
-import PictureComp from './components/PictureComponent';
 import { v4 as uuidv4 } from 'uuid';
+import { PictureListComponent } from './components/PictureListComponent';
 
 export type Picture = {
   id: string,
@@ -41,15 +41,6 @@ function App(): JSX.Element {
     setNewPictureLink(newLink);
   }
 
-  const pictureCompList = pictureList.map(picture => {
-    return (
-      <PictureComp
-        key={ picture.id }
-        picture={ picture }
-        onClick={ () => removePicture(picture.id) } />
-    )
-  });
-
   const disableAttr = newPictureLink !== "" ? "bg-green-600" : "bg-green-300";
 
   return (
@@ -59,9 +50,9 @@ function App(): JSX.Element {
           <div className="my-4"> Hello </div>
         </div>
         <section>
-          <div className="flex flex-wrap justify-center">
-            { pictureCompList }
-          </div>
+          <PictureListComponent
+            pictureList={ pictureList }
+            onItemClick={ removePicture } />
           <div className="flex justify-between my-5">
             <div className="w-full">
               <input
