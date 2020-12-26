@@ -13,10 +13,10 @@ export type Picture = {
 function App(): JSX.Element {
 
   const initialPictureList: Array<Picture> = [
-    { id: uuidv4(), width: 150, description: "bycicle", url: "https://images.unsplash.com/photo-1532298229144-0ec0c57515c7?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1308&q=80" },
-    { id: uuidv4(), width: 150, description: "bycicle", url: "https://images.unsplash.com/photo-1532298229144-0ec0c57515c7?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1308&q=80" },
-    { id: uuidv4(), width: 150, description: "bycicle", url: "https://images.unsplash.com/photo-1606895213385-e0a005ef801a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" },
-    { id: uuidv4(), width: 150, description: "bycicle", url: "https://images.unsplash.com/photo-1512518463689-538edacd754d?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1267&q=80" },
+    { id: uuidv4(), width: 150, description: "bycicle", url: "https://images.unsplash.com/photo-1608268191812-62ed1505e62a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" },
+    { id: uuidv4(), width: 150, description: "bycicle", url: "https://images.unsplash.com/photo-1606673448434-c04296eed454?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2089&q=80" },
+    { id: uuidv4(), width: 150, description: "bycicle", url: "https://images.unsplash.com/photo-1608153650930-78399f51bd44?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80" },
+    { id: uuidv4(), width: 150, description: "bycicle", url: "https://images.unsplash.com/photo-1608153529195-23ee00ef98a5?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1506&q=80" },
 
   ]
 
@@ -31,9 +31,9 @@ function App(): JSX.Element {
 
   };
 
-  function removePicture(key: string) {
+  function removePicture(pictureId: string) {
     const pictureListClone = [...pictureList];
-    const newPictureList = pictureListClone.filter(picture => picture.id !== key);
+    const newPictureList = pictureListClone.filter(picture => picture.id !== pictureId);
     setPictureList(newPictureList);
   }
 

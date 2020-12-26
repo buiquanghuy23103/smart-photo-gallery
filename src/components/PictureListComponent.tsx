@@ -4,7 +4,7 @@ import PictureComponent from "./PictureComponent";
 
 type PictureListProps = {
     pictureList: Array<Picture>,
-    onItemClick: (key: string) => void
+    onItemClick: (pictureId: string) => void
 };
 
 export function PictureListComponent(props: PictureListProps) {
