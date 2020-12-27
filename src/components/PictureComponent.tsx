@@ -29,13 +29,12 @@ export default function PictureComponent(props: PictureProps) {
             <div className="relative"
                 onMouseEnter={ handleMouseEnter }
                 onMouseLeave={ handleMouseLeave }>
-                <i className={ showHideIcon() } />
+                <i className={ showHideIcon() }
+                    onClick={ () => props.onClick() } />
                 <img
                     src={ props.picture.url }
                     alt={ props.picture.description }
                     width={ props.picture.width }
-                    onClick={ () => props.onClick() }
-
                 />
             </div>
 

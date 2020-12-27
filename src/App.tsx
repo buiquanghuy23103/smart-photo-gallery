@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './App.css';
 import { v4 as uuidv4 } from 'uuid';
 import { PictureListComponent } from './components/PictureListComponent';
@@ -22,6 +22,11 @@ function App(): JSX.Element {
 
   const [pictureList, setPictureList] = useState(initialPictureList);
   const [newPictureLink, setNewPictureLink] = useState("");
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, [])
 
   const addPicture = () => {
     if (!!newPictureLink) {
@@ -57,6 +62,7 @@ function App(): JSX.Element {
             <div className="w-full">
               <input
                 type="text"
+                ref={ inputRef }
                 className="p-2 border border-gray-800 shadow rounded w-full"
                 onChange={ (e) => changePictureLink(e.target.value) } />
             </div>
