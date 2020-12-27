@@ -23,10 +23,15 @@ function App(): JSX.Element {
   const [pictureList, setPictureList] = useState(initialPictureList);
   const [newPictureLink, setNewPictureLink] = useState("");
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const updateCountRef = useRef(0);
 
   useEffect(() => {
     inputRef.current?.focus();
-  }, [])
+  }, []);
+
+  useEffect(() => {
+    updateCountRef.current = updateCountRef.current + 1;
+  });
 
   const addPicture = () => {
     if (!!newPictureLink) {
@@ -52,7 +57,10 @@ function App(): JSX.Element {
     <section className="flex justify-center">
       <div className="w-1/2">
         <div className="text-center">
-          <div className="my-4"> Hello </div>
+          <div className="my-4">
+            <h1>HELLO</h1>
+            <h2>Update count: { updateCountRef.current }</h2>
+          </div>
         </div>
         <section>
           <PictureListComponent
