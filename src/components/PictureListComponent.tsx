@@ -1,5 +1,5 @@
 import React from "react";
-import { Picture } from "../App";
+import { Picture } from "../types/PictureResponseTypes";
 import PictureComponent from "./PictureComponent";
 
 type PictureListProps = {

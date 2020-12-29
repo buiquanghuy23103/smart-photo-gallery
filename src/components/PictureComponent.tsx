@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Picture } from "../App";
+import { Picture } from "../types/PictureResponseTypes";
 
 type PictureProps = {
     picture: Picture,
@@ -32,7 +32,7 @@ export default function PictureComponent(props: PictureProps) {
                 <i className={ showHideIcon() }
                     onClick={ () => props.onClick() } />
                 <img
-                    src={ props.picture.url }
+                    src={ props.picture.urls.regular }
                     alt={ props.picture.description }
                     width={ props.picture.width }
                 />
