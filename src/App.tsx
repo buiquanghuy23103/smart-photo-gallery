@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import './App.css';
 import { v4 as uuidv4 } from 'uuid';
 import { PictureListComponent } from './components/PictureListComponent';
@@ -22,6 +22,7 @@ function App(): JSX.Element {
 
   const [pictureList, setPictureList] = useState(initialPictureList);
   const [newPictureLink, setNewPictureLink] = useState("");
+  const [myName, setMyName] = useState("Huy §wasaxddcsdcscdscdwhtgrrrrr");
   const inputRef = useRef<HTMLInputElement | null>(null);
   const updateCountRef = useRef(0);
 
@@ -31,6 +32,14 @@ function App(): JSX.Element {
 
   useEffect(() => {
     updateCountRef.current = updateCountRef.current + 1;
+    console.log("I am useEffect");
+
+  });
+
+  useLayoutEffect(() => {
+    console.log("I am useLayoutEffect");
+    setMyName("React JS");
+
   });
 
   const addPicture = () => {
@@ -45,6 +54,8 @@ function App(): JSX.Element {
     const pictureListClone = [...pictureList];
     const newPictureList = pictureListClone.filter(picture => picture.id !== pictureId);
     setPictureList(newPictureList);
+    console.log("State has just been changed");
+
   }
 
   function changePictureLink(newLink: string) {
@@ -55,6 +66,8 @@ function App(): JSX.Element {
 
   return (
     <section className="flex justify-center">
+      <p>My name is { myName }</p>
+      { console.log("I am component") }
       <div className="w-1/2">
         <div className="text-center">
           <div className="my-4">
@@ -71,7 +84,7 @@ function App(): JSX.Element {
               <input
                 type="text"
                 ref={ inputRef }
-                className="p-2 border border-gray-800 shadow rounded w-full"
+                className="p-2 border shadow border-gray-800 shadow rounded w-full"
                 onChange={ (e) => changePictureLink(e.target.value) } />
             </div>
             <div className="ml-2">
