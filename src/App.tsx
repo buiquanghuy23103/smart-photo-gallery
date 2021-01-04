@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import './App.css';
+import LoadingComponent from './components/LoadingComponent';
 import { PictureListComponent } from './components/PictureListComponent';
 import useFetchPicture from './utils/hooks/useFetchPicture';
 
@@ -7,7 +8,7 @@ import useFetchPicture from './utils/hooks/useFetchPicture';
 function App(): JSX.Element {
 
   const [page, setPage] = useState(1);
-  const [pictureList, setPictureList, errors] = useFetchPicture(page);
+  const [pictureList, setPictureList, errors, isLoading] = useFetchPicture(page);
 
   function removePicture(pictureId: string) {
     const pictureListClone = [...pictureList];
@@ -21,7 +22,7 @@ function App(): JSX.Element {
     setPage(page + 1);
   }
 
-  function shouldHideOnErrors() {
+  function shouldHideOnErrorsAndLoading() {
     if (errors.length > 0) {
       return "hidden";
     }
@@ -39,6 +40,8 @@ function App(): JSX.Element {
     return null;
   }
 
+  if (isLoading) return (<LoadingComponent />)
+
   return (
     <section className="flex justify-center">
       <div className="w-1/2">
@@ -52,7 +55,7 @@ function App(): JSX.Element {
           <PictureListComponent
             pictureList={ pictureList }
             onItemClick={ removePicture } />
-          <button className={ shouldHideOnErrors() } type="submit" onClick={ loadMore }>Load more</button>
+          <button className={ shouldHideOnErrorsAndLoading() } type="submit" onClick={ loadMore }>Load more</button>
         </section>
       </div>
 
