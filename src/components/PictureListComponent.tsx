@@ -1,5 +1,5 @@
-import React from "react";
 import { Picture } from "../types/PictureResponseTypes";
+import useScroll from "../utils/hooks/useScroll";
 import PictureComponent from "./PictureComponent";
 
 type PictureListProps = {
@@ -8,6 +8,7 @@ type PictureListProps = {
 };
 
 export function PictureListComponent(props: PictureListProps) {
+    const scrollPosition = useScroll();
     const pictureComponentList = props.pictureList.map(picture => {
         return (
             <PictureComponent
@@ -18,6 +19,7 @@ export function PictureListComponent(props: PictureListProps) {
     });
 
     return (<div className="flex flex-wrap justify-center">
+        { console.log(`scrollPosition: ${scrollPosition}`) }
         { pictureComponentList }
     </div>)
 }
