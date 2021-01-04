@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './App.css';
 import { PictureListComponent } from './components/PictureListComponent';
 import useFetchPicture from './utils/hooks/useFetchPicture';
@@ -6,7 +6,8 @@ import useFetchPicture from './utils/hooks/useFetchPicture';
 
 function App(): JSX.Element {
 
-  const [pictureList, setPictureList] = useFetchPicture();
+  const [page, setPage] = useState(1);
+  const [pictureList, setPictureList] = useFetchPicture(page);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const updateCountRef = useRef(0);
 
@@ -16,6 +17,10 @@ function App(): JSX.Element {
     setPictureList(newPictureList);
     console.log("State has just been changed");
 
+  }
+
+  function loadMore() {
+    setPage(page + 1);
   }
 
   useEffect(() => {// on App mount
@@ -40,8 +45,8 @@ function App(): JSX.Element {
           <PictureListComponent
             pictureList={ pictureList }
             onItemClick={ removePicture } />
+          <button type="submit" onClick={ loadMore }>Load more</button>
         </section>
-
       </div>
 
     </section>
