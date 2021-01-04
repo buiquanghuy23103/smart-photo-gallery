@@ -25,7 +25,7 @@ export default function PictureComponent(props: PictureProps) {
     }
 
     return (
-        <div className="w-1/3 my-4 flex justify-center">
+        <div className="p-1 m-1 border my-4 flex justify-center">
             <div className="relative"
                 onMouseEnter={ handleMouseEnter }
                 onMouseLeave={ handleMouseLeave }>
@@ -35,6 +35,8 @@ export default function PictureComponent(props: PictureProps) {
                     src={ props.picture.urls.regular }
                     alt={ props.picture.description }
                     width={ props.picture.width }
+                    height="auto"
+
                 />
             </div>
 

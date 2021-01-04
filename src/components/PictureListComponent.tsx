@@ -18,7 +18,7 @@ export function PictureListComponent(props: PictureListProps) {
         )
     });
 
-    return (<div className="flex flex-wrap justify-center">
+    return (<div className="gap-0" style={ { columnCount: 5 } }>
         { console.log(`scrollPosition: ${scrollPosition}`) }
         { pictureComponentList }
     </div>)
