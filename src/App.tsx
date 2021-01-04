@@ -7,9 +7,7 @@ import useFetchPicture from './utils/hooks/useFetchPicture';
 function App(): JSX.Element {
 
   const [page, setPage] = useState(1);
-  const [pictureList, setPictureList] = useFetchPicture(page);
-  const inputRef = useRef<HTMLInputElement | null>(null);
-  const updateCountRef = useRef(0);
+  const [pictureList, setPictureList, errors] = useFetchPicture(page);
 
   function removePicture(pictureId: string) {
     const pictureListClone = [...pictureList];
@@ -23,15 +21,23 @@ function App(): JSX.Element {
     setPage(page + 1);
   }
 
-  useEffect(() => {// on App mount
-    inputRef.current?.focus();
-  }, []);
+  function shouldHideOnErrors() {
+    if (errors.length > 0) {
+      return "hidden";
+    }
+    return ""
+  }
 
-  useEffect(() => {
-    updateCountRef.current = updateCountRef.current + 1;
-    console.log("I am useEffect");
+  function showErrorMessage() {
+    if (errors.length > 0) {
+      return (<div className="flex h-screen">
 
-  });
+        <p className="m-auto">{ errors[0] }</p>
+      </div>)
+    }
+
+    return null;
+  }
 
   return (
     <section className="flex justify-center">
@@ -39,13 +45,14 @@ function App(): JSX.Element {
         <div className="text-center">
           <div className="my-4">
             <h1>HELLO</h1>
+            { showErrorMessage() }
           </div>
         </div>
         <section>
           <PictureListComponent
             pictureList={ pictureList }
             onItemClick={ removePicture } />
-          <button type="submit" onClick={ loadMore }>Load more</button>
+          <button className={ shouldHideOnErrors() } type="submit" onClick={ loadMore }>Load more</button>
         </section>
       </div>
 
