@@ -1,12 +1,14 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import LoadingComponent from './components/LoadingComponent';
 import { PictureListComponent } from './components/PictureListComponent';
 import useFetchPicture from './utils/hooks/useFetchPicture';
+import useScroll from './utils/hooks/useScroll';
 
 
 function App(): JSX.Element {
 
+  const scrollPosition = useScroll();
   const [page, setPage] = useState(1);
   const [pictureList, setPictureList, errors, isLoading] = useFetchPicture(page);
 
@@ -39,6 +41,14 @@ function App(): JSX.Element {
 
     return null;
   }
+
+  useEffect(() => {
+    const isBottomReached = scrollPosition === document.body.offsetHeight - window.innerHeight;
+    if (isBottomReached) {
+      loadMore();
+    }
+  }, [scrollPosition]);
+
 
   if (isLoading) return (<LoadingComponent />)
 
