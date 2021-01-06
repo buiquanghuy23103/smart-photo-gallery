@@ -3,6 +3,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import './App.css';
 import LoadingComponent from './components/LoadingComponent';
 import { PictureListComponent } from './components/PictureListComponent';
+import useDebounce from './utils/hooks/useDebounce';
 import useFetchPicture from './utils/hooks/useFetchPicture';
 
 
@@ -11,7 +12,7 @@ function App(): JSX.Element {
   const [query, setQuery] = useState<string | null>(null);
   const [page, setPage] = useState(1);
   const [pictureList, setPictureList, errors] = useFetchPicture(page, query);
-  const [typingTimemout, setTypingTimeout] = useState<number | null>(null);
+  const debounce = useDebounce();
 
   function removePicture(pictureId: string) {
     const pictureListClone = [...pictureList];
@@ -35,15 +36,9 @@ function App(): JSX.Element {
   }
 
   function searchPictures(queryString: string | null) {
-    if (!!typingTimemout) {
-      window.clearTimeout(typingTimemout);
-    }
-
-    const timeout = window.setTimeout(() => {
+    debounce(() => {
       setQuery(queryString);
-    }, 1000);
-
-    setTypingTimeout(timeout);
+    });
   }
 
   return (
