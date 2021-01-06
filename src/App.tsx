@@ -8,8 +8,10 @@ import useFetchPicture from './utils/hooks/useFetchPicture';
 
 function App(): JSX.Element {
 
+  const [query, setQuery] = useState<string | null>(null);
   const [page, setPage] = useState(1);
-  const [pictureList, setPictureList, errors] = useFetchPicture(page);
+  const [pictureList, setPictureList, errors] = useFetchPicture(page, query);
+  const [typingTimemout, setTypingTimeout] = useState<number | null>(null);
 
   function removePicture(pictureId: string) {
     const pictureListClone = [...pictureList];
@@ -23,7 +25,7 @@ function App(): JSX.Element {
 
 
   function showErrorMessage() {
-    if (errors.length > 0) {
+    if (!!errors && errors.length > 0) {
       return (<div className="flex h-screen">
         <p className="m-auto">{ errors[0] }</p>
       </div>)
@@ -32,14 +34,30 @@ function App(): JSX.Element {
     return null;
   }
 
+  function searchPictures(queryString: string | null) {
+    if (!!typingTimemout) {
+      window.clearTimeout(typingTimemout);
+    }
 
+    const timeout = window.setTimeout(() => {
+      setQuery(queryString);
+    }, 1000);
+
+    setTypingTimeout(timeout);
+  }
 
   return (
-    <section className="flex justify-center">
-      <div className="w-1/2">
+    <section>
+      <div className="my-5 m-5">
+        <input
+          className="w-full border rounded shadow p-2"
+          placeholder="Search photos here"
+          type="text"
+          onChange={ e => searchPictures(e.target.value) } />
+      </div>
+      <div className="flex m-10">
         <div className="text-center">
           <div className="my-4">
-            <h1>HELLO</h1>
             { showErrorMessage() }
           </div>
         </div>
