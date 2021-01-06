@@ -1,10 +1,17 @@
 import React from 'react'
 
 export default function LoginPageComponent() {
+
+    function handleForm(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault();
+        console.log("Submitted");
+
+    }
+
     return (
         <div className="flex h-screen bg-gray-200">
             <div className="m-auto w-1/3 text-white flex flex-wrap justify-center shadow-lg rounded-lg bg-gradient-to-br from-indigo-900 to-indigo-700">
-                <form className="m-5 w-10/12">
+                <form className="m-5 w-10/12" onSubmit={ handleForm }>
                     <h1 className="w-full text-4xl tracking-widest text-center">Login</h1>
                     <div className="w-full my-6">
                         <input
