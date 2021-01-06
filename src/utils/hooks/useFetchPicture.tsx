@@ -11,13 +11,14 @@ export default function useFetchPicture(query: string | null) {
     const [errors, setErrors] = useState([] as string[]);
     const [page, setPage] = useState(FIRST_PAGE_NUMBER);
 
-    function downloadPictures(
-        reset: boolean,
-        url: string,
-    ) {
-        if (reset) {
-            setPage(FIRST_PAGE_NUMBER);
-        }
+    function resetPageNumber() {
+        setPage(FIRST_PAGE_NUMBER);
+    }
+
+    function downloadPictures() {
+        const api = !!query ? `/search/photos?query=${query}&` : "/photos?"
+        const url = `${BASE_URL}${api}client_id=${PUBLIC_KEY}&query=${query}&page=${page}`;
+
         console.log(url);
 
         axios.get(url)
@@ -36,32 +37,14 @@ export default function useFetchPicture(query: string | null) {
             });
     }
 
-    function searchPictures(reset: boolean) {
-        const url = `${BASE_URL}/search/photos?client_id=${PUBLIC_KEY}&query=${query}&page=${page}`;
-        downloadPictures(reset, url);
-    }
-
-    function getRandomPictures(reset: boolean) {
-        const url = `${BASE_URL}/photos?client_id=${PUBLIC_KEY}&page=${page}`;
-        downloadPictures(reset, url);
-    }
-
     useEffect(() => {
         if (query === null) return;
-        if (query === "") {
-            getRandomPictures(true);
-        } else {
-            searchPictures(true);
-        }
+        resetPageNumber();
+        downloadPictures();
     }, [query])
 
     useEffect(() => {
-        if (!!query) {
-            searchPictures(false);
-        } else {
-            getRandomPictures(false);
-        }
-
+        downloadPictures();
     }, [page])
 
 
