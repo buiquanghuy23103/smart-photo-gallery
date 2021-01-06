@@ -4,22 +4,29 @@ import { Picture } from '../../types/PictureResponseTypes';
 
 const BASE_URL = process.env.REACT_APP_UNSPLASH_URL;
 const PUBLIC_KEY = process.env.REACT_APP_UNSPLASH_PUBLIC_KEY;
+const FIRST_PAGE_NUMBER = 1;
 
-export default function useFetchPicture(requestedPageNumber: number, query: string | null) {
+export default function useFetchPicture(query: string | null) {
     const [pictureList, setPictureList] = useState([] as Picture[]);
     const [errors, setErrors] = useState([] as string[]);
+    const [page, setPage] = useState(FIRST_PAGE_NUMBER);
 
-    function searchPictures(reset: boolean) {
-        const pageNumber = reset ? 1 : requestedPageNumber;
-        const url = `${BASE_URL}/search/photos?client_id=${PUBLIC_KEY}&query=${query}&page=${pageNumber}`;
+    function downloadPictures(
+        reset: boolean,
+        url: string,
+    ) {
+        if (reset) {
+            setPage(FIRST_PAGE_NUMBER);
+        }
         console.log(url);
 
         axios.get(url)
             .then(res => {
-                if (reset) {
-                    setPictureList([...res.data.results]);
+                const newPictureList = query ? res.data.results : res.data;
+                if (page > FIRST_PAGE_NUMBER) {
+                    setPictureList([...pictureList, ...newPictureList]);
                 } else {
-                    setPictureList([...pictureList, ...res.data.results]);
+                    setPictureList([...newPictureList]);
                 }
                 setErrors([]);
             })
@@ -27,35 +34,24 @@ export default function useFetchPicture(requestedPageNumber: number, query: stri
                 console.log(`errors=${err}`);
                 setErrors(err.response.data.errors);
             });
+    }
 
+    function searchPictures(reset: boolean) {
+        const url = `${BASE_URL}/search/photos?client_id=${PUBLIC_KEY}&query=${query}&page=${page}`;
+        downloadPictures(reset, url);
     }
 
     function getRandomPictures(reset: boolean) {
-        const pageNumber = reset ? 1 : requestedPageNumber;
-        const url = `${BASE_URL}/photos?client_id=${PUBLIC_KEY}&page=${pageNumber}`;
-        console.log(url);
-
-        axios.get(url)
-            .then(res => {
-                if (reset) {
-                    setPictureList([...res.data]);
-                } else {
-
-                    setPictureList([...pictureList, ...res.data]);
-                }
-                setErrors([]);
-            })
-            .catch(err => {
-                console.log(`errors=${err}`);
-                setErrors(err.response.data.errors);
-            });
+        const url = `${BASE_URL}/photos?client_id=${PUBLIC_KEY}&page=${page}`;
+        downloadPictures(reset, url);
     }
 
     useEffect(() => {
-        if (!!query) {
-            searchPictures(true);
-        } else {
+        if (query === null) return;
+        if (query === "") {
             getRandomPictures(true);
+        } else {
+            searchPictures(true);
         }
     }, [query])
 
@@ -66,9 +62,9 @@ export default function useFetchPicture(requestedPageNumber: number, query: stri
             getRandomPictures(false);
         }
 
-    }, [requestedPageNumber])
+    }, [page])
 
 
 
-    return [pictureList, setPictureList, errors] as const;
+    return [pictureList, setPictureList, errors, page, setPage] as const;
 }

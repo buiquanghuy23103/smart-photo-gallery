@@ -10,8 +10,7 @@ import useFetchPicture from './utils/hooks/useFetchPicture';
 function App(): JSX.Element {
 
   const [query, setQuery] = useState<string | null>(null);
-  const [page, setPage] = useState(1);
-  const [pictureList, setPictureList, errors] = useFetchPicture(page, query);
+  const [pictureList, setPictureList, errors, page, setPage] = useFetchPicture(query);
   const debounce = useDebounce();
 
   function removePicture(pictureId: string) {
