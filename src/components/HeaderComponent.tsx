@@ -5,6 +5,19 @@ import { firebaseAuth } from '../config/firebase';
 export default function HeaderComponent() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+    function logout() {
+        firebaseAuth.signOut()
+            .then(() => {
+                console.log("logout");
+
+                // setIsLoggedIn(false);
+            })
+            .catch(err => {
+                console.log(err);
+
+            })
+    }
+
     useEffect(() => {
         firebaseAuth.onAuthStateChanged(user => {
             if (user) {
@@ -28,7 +41,7 @@ export default function HeaderComponent() {
                 </span>
                 <li>
                     { isLoggedIn ?
-                        (<button>Logout</button>) :
+                        (<button onClick={ logout }>Logout</button>) :
                         (<Link to="/login">Login</Link>)
                     }
                 </li>
