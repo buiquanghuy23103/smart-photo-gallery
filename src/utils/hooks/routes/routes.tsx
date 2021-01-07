@@ -1,6 +1,6 @@
-import GalleryPageComponent from "./GalleryPageComponent";
-import HomePageComponent from "./HomePageComponent";
-import LoginPageComponent from "./LoginPageComponent";
+import GalleryPageComponent from "../../../pages/GalleryPageComponent";
+import HomePageComponent from "../../../pages/HomePageComponent";
+import LoginPageComponent from "../../../pages/LoginPageComponent";
 
 type Route = {
     name: string,
