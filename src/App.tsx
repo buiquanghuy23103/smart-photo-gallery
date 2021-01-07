@@ -11,13 +11,7 @@ import HeaderComponent from './components/HeaderComponent';
 import React, { useEffect, useState } from 'react';
 import auth from 'firebase';
 import { firebaseAuth } from './config/firebase';
-
-export interface AppContextInterface {
-  isLoggedIn: boolean,
-  user: auth.User | null
-}
-
-export const appContext = React.createContext<AppContextInterface | null>(null);
+import { AppContext, AppContextInterface } from './store/AppContext';
 
 function App(): JSX.Element {
 
@@ -43,7 +37,7 @@ function App(): JSX.Element {
 
   return (
     <BrowserRouter>
-      <appContext.Provider value={ initAppContext }>
+      <AppContext.Provider value={ initAppContext }>
 
         <HeaderComponent />
         <Switch>
@@ -55,7 +49,7 @@ function App(): JSX.Element {
             component={ route.component }
           />)) }
         </Switch>
-      </appContext.Provider>
+      </AppContext.Provider>
     </BrowserRouter>
   )
 

@@ -1,23 +1,20 @@
 import React, { useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { appContext } from '../App';
 import { firebaseAuth } from '../config/firebase';
+import { AppContext } from '../store/AppContext';
 
 export default function HeaderComponent() {
     const history = useHistory();
-    const context = useContext(appContext)
+    const context = useContext(AppContext);
 
 
     function logout() {
         firebaseAuth.signOut()
             .then(() => {
-                console.log("logout");
                 history.replace("/login");
-                // setIsLoggedIn(false);
             })
             .catch(err => {
                 console.log(err.response.data);
-
             })
     }
 
