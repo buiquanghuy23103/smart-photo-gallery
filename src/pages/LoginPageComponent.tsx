@@ -1,15 +1,17 @@
 import React, { useState } from 'react'
 import { firebaseAuth } from '../config/firebase';
+import { EmailPasswordForm } from '../types/Forms';
 
 export default function LoginPageComponent() {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState("");
+    const [form, setForm] = useState<EmailPasswordForm>({ email: "", password: "" });
 
     function handleForm(e: React.FormEvent<HTMLFormElement>) {
         if (isLoading) return;
         setIsLoading(true);
         e.preventDefault();
-        firebaseAuth.signInWithEmailAndPassword("huy.bui@email.com", "password123")
+        firebaseAuth.signInWithEmailAndPassword(form.email, form.password)
             .then((user) => {
                 setIsLoading(false);
                 console.log(user);
@@ -38,6 +40,11 @@ export default function LoginPageComponent() {
         }
     }
 
+    function onFormInputChange(event: React.ChangeEvent<HTMLInputElement>) {
+        console.log(event.target.value, event.target.name);
+        setForm({ ...form, [event.target.name]: event.target.value })
+    }
+
     return (
         <div className="flex h-screen bg-gray-200">
             <div className="m-auto w-1/3 text-white flex flex-wrap justify-center shadow-lg rounded-lg bg-gradient-to-br from-indigo-900 to-indigo-700">
@@ -46,16 +53,22 @@ export default function LoginPageComponent() {
                     <h1 className="w-full text-4xl tracking-widest text-center">Login</h1>
                     <div className="w-full my-6">
                         <input
+                            name="email"
                             type="email"
                             className="p-2 rounded shadow w-full text-black"
                             placeholder="Email or username"
+                            value={ form.email }
+                            onChange={ onFormInputChange }
                         />
                     </div>
                     <div className="w-full my-6">
                         <input
+                            name="password"
                             type="password"
                             className="p-2 rounded shadow w-full text-black"
                             placeholder="Password"
+                            value={ form.password }
+                            onChange={ onFormInputChange }
                         />
                     </div>
                     <button
