@@ -55,36 +55,36 @@ function App(): JSX.Element {
             switch (route.routeType) {
 
               case RouteType.auth:
-                return <AuthRoute
+                return (<AuthRoute
                   key={ route.path }
                   path={ route.path }
                   exact={ route.exact }
                   component={ route.component }
-                />;
+                />);
 
               case RouteType.guest:
-                return <GuestRoute
+                return (<GuestRoute
                   key={ route.path }
                   path={ route.path }
                   exact={ route.exact }
                   component={ route.component }
-                />;
+                />);
 
               case RouteType.default:
-                return <Route
+                return (<Route
                   key={ route.path }
                   path={ route.path }
                   exact={ route.exact }
                   component={ route.component }
-                />
+                />);
 
               default:
-                return <Route
+                return (<Route
                   key={ route.path }
                   path={ route.path }
                   exact={ route.exact }
                   component={ route.component }
-                />
+                />);
             }
           }) }
 
