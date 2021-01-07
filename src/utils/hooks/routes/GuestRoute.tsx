@@ -6,10 +6,6 @@ import { AppContext } from '../../../store/AppContext';
 export default function GuestRoute(props: RouteProps) {
     const context = useContext(AppContext);
 
-    if (context?.isLoggedIn === null) {
-        return <LoadingComponent />
-    }
-
     if (context?.isLoggedIn) {
         return <Redirect to="/" />
     }

@@ -2,7 +2,7 @@ import React from "react";
 import auth from 'firebase';
 
 export interface AppContextInterface {
-    isLoggedIn: boolean | null,
+    isLoggedIn: boolean,
     user: auth.User | null
 }
 

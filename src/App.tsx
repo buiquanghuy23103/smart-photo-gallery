@@ -14,11 +14,13 @@ import { firebaseAuth } from './config/firebase';
 import { AppContext, AppContextInterface } from './store/AppContext';
 import AuthRoute from './utils/hooks/routes/AuthRoute';
 import GuestRoute from './utils/hooks/routes/GuestRoute';
+import LoadingComponent from './components/LoadingComponent';
 
 function App(): JSX.Element {
 
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [user, setUser] = useState<auth.User | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const initAppContext: AppContextInterface = {
     isLoggedIn: isLoggedIn,
@@ -26,7 +28,9 @@ function App(): JSX.Element {
   };
 
   useEffect(() => {
+    setIsLoading(true);
     firebaseAuth.onAuthStateChanged(user => {
+      setIsLoading(false);
       if (user) {
         setIsLoggedIn(true);
         setUser(user);
@@ -35,7 +39,9 @@ function App(): JSX.Element {
         setUser(null);
       }
     })
-  });
+  }, []);
+
+  if (isLoading) return <LoadingComponent />
 
   return (
     <BrowserRouter>
