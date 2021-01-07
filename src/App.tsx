@@ -15,6 +15,7 @@ import { AppContext, AppContextInterface } from './store/AppContext';
 import AuthRoute from './utils/hooks/routes/AuthRoute';
 import GuestRoute from './utils/hooks/routes/GuestRoute';
 import LoadingComponent from './components/LoadingComponent';
+import NotFoundPageComponent from './pages/NotFoundPageComponent';
 
 function App(): JSX.Element {
 
@@ -86,6 +87,8 @@ function App(): JSX.Element {
                 />
             }
           }) }
+
+          <Route path="*" component={ NotFoundPageComponent } />
         </Switch>
       </AppContext.Provider>
     </BrowserRouter>
