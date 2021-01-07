@@ -3,17 +3,17 @@ import './App.css';
 
 import {
   BrowserRouter,
-  Redirect,
   Route,
   Switch
 } from 'react-router-dom';
-import routes from './utils/hooks/routes/routes';
+import routes, { RouteType } from './utils/hooks/routes/routes';
 import HeaderComponent from './components/HeaderComponent';
 import React, { useEffect, useState } from 'react';
 import auth from 'firebase';
 import { firebaseAuth } from './config/firebase';
 import { AppContext, AppContextInterface } from './store/AppContext';
 import AuthRoute from './utils/hooks/routes/AuthRoute';
+import GuestRoute from './utils/hooks/routes/GuestRoute';
 
 function App(): JSX.Element {
 
@@ -45,27 +45,40 @@ function App(): JSX.Element {
         <Switch>
           { routes.map((route) => {
 
-            if (route.path === "/login") {
-              if (isLoggedIn) return <Redirect to="/" />
+            switch (route.routeType) {
+
+              case RouteType.auth:
+                return <AuthRoute
+                  key={ route.path }
+                  path={ route.path }
+                  exact={ route.exact }
+                  component={ route.component }
+                />;
+
+              case RouteType.guest:
+                return <GuestRoute
+                  key={ route.path }
+                  path={ route.path }
+                  exact={ route.exact }
+                  component={ route.component }
+                />;
+
+              case RouteType.default:
+                return <Route
+                  key={ route.path }
+                  path={ route.path }
+                  exact={ route.exact }
+                  component={ route.component }
+                />
+
+              default:
+                return <Route
+                  key={ route.path }
+                  path={ route.path }
+                  exact={ route.exact }
+                  component={ route.component }
+                />
             }
-
-            if (route.path === "/gallery") {
-              return <AuthRoute
-                key={ route.path }
-                path={ route.path }
-                exact={ route.exact }
-                component={ route.component }
-              />
-
-            }
-
-            return <Route
-              key={ route.path }
-              path={ route.path }
-              exact={ route.exact }
-              component={ route.component }
-            />
-
           }) }
         </Switch>
       </AppContext.Provider>
