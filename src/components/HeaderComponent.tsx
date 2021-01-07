@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { firebaseAuth } from '../config/firebase';
 
 export default function HeaderComponent() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const history = useHistory();
 
     function logout() {
         firebaseAuth.signOut()
             .then(() => {
                 console.log("logout");
-
+                history.replace("/login");
                 // setIsLoggedIn(false);
             })
             .catch(err => {
-                console.log(err);
+                console.log(err.response.data);
 
             })
     }
