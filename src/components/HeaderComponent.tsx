@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import { appContext } from '../App';
 import { firebaseAuth } from '../config/firebase';
 
 export default function HeaderComponent() {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const history = useHistory();
+    const context = useContext(appContext)
+
 
     function logout() {
         firebaseAuth.signOut()
@@ -19,16 +21,6 @@ export default function HeaderComponent() {
             })
     }
 
-    useEffect(() => {
-        firebaseAuth.onAuthStateChanged(user => {
-            if (user) {
-                setIsLoggedIn(true);
-            } else {
-                setIsLoggedIn(false);
-            }
-        })
-    });
-
     return (
         <nav className="p-3 bg-gray-900 text-white">
             <ul className="px-10 flex justify-between">
@@ -41,7 +33,7 @@ export default function HeaderComponent() {
                     </li>
                 </span>
                 <li>
-                    { isLoggedIn ?
+                    { context?.isLoggedIn ?
                         (<button onClick={ logout }>Logout</button>) :
                         (<Link to="/login">Login</Link>)
                     }
