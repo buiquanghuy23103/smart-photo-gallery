@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { firebaseAuth } from '../config/firebase';
 import { EmailPasswordForm } from '../types/Forms';
 
@@ -7,7 +7,7 @@ export default function LoginPageComponent() {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState("");
     const [form, setForm] = useState<EmailPasswordForm>({ email: "", password: "" });
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const history = useHistory();
 
     function handleForm(e: React.FormEvent<HTMLFormElement>) {
         if (isLoading) return;
@@ -17,8 +17,7 @@ export default function LoginPageComponent() {
             .then((user) => {
                 setIsLoading(false);
                 setError("");
-                setIsLoggedIn(true);
-                console.log(user);
+                history.push("/");
             })
             .catch((error) => {
                 setIsLoading(false);
@@ -49,7 +48,6 @@ export default function LoginPageComponent() {
         setForm({ ...form, [event.target.name]: event.target.value })
     }
 
-    if (isLoggedIn) return <Redirect exact to="/" />
 
     return (
         <div className="flex h-screen bg-gray-200">
