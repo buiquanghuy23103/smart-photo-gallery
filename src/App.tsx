@@ -17,7 +17,7 @@ import GuestRoute from './utils/hooks/routes/GuestRoute';
 
 function App(): JSX.Element {
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
   const [user, setUser] = useState<auth.User | null>(null);
 
   const initAppContext: AppContextInterface = {
