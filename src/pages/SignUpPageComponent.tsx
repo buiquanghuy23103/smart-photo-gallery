@@ -1,29 +1,14 @@
 import { useFormik } from 'formik';
 import { firebaseAuth } from '../config/firebase';
 import { EmailPasswordErrorMessage, EmailPasswordFormValue } from '../types/Forms';
+import * as Yup from 'yup';
 
-export default function SignUpPageComponent() {
+enum SignUpFormFields {
+    email = "email",
+    password = "password"
+}
 
-    function validateForm(values: EmailPasswordFormValue) {
-        const errors: EmailPasswordErrorMessage = {
-            email: '',
-            password: '',
-        };
-
-        if (!values.password) {
-            errors.password = 'Required';
-        } else if (values.password.length < 6) {
-            errors.password = 'Must be 6 characters or more';
-        }
-
-        if (!values.email) {
-            errors.email = 'Required';
-        } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-            errors.email = 'Invalid email address';
-        }
-
-        return errors;
-    }
+export default function SignUpPageComponent(): JSX.Element {
 
     function handleSubmit(values: EmailPasswordFormValue) {
         firebaseAuth.createUserWithEmailAndPassword(values.email, values.password)
@@ -40,7 +25,7 @@ export default function SignUpPageComponent() {
 
     function showErrorAfterFieldTouched(errorMessage: string | undefined) {
         if (formik.touched.email && formik.touched.password) {
-            if (errorMessage === undefined) return (<p>Unknown error</p>)
+            if (errorMessage === undefined) return null;
             return (<p>{ errorMessage }</p>)
         }
         return null;
@@ -52,8 +37,11 @@ export default function SignUpPageComponent() {
             password: ''
         },
         validateOnChange: true,
-        validate: validateForm,
         onSubmit: handleSubmit,
+        validationSchema: Yup.object({
+            email: Yup.string().email().required(),
+            password: Yup.string().min(6).required()
+        })
     });
 
     return (
@@ -63,7 +51,7 @@ export default function SignUpPageComponent() {
                     <h1 className="w-full text-4xl tracking-widest text-center">Sign up here</h1>
                     <div className="w-full my-6">
                         <input
-                            name="email"
+                            name={ SignUpFormFields.email }
                             type="email"
                             className="p-2 rounded shadow w-full text-black"
                             placeholder="Email or username"
@@ -75,7 +63,7 @@ export default function SignUpPageComponent() {
                     </div>
                     <div className="w-full my-6">
                         <input
-                            name="password"
+                            name={ SignUpFormFields.password }
                             type="password"
                             className="p-2 rounded shadow w-full text-black"
                             placeholder="Password"
