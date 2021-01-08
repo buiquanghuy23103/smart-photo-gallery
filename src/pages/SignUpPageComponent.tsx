@@ -1,6 +1,6 @@
 import { useFormik } from 'formik';
 import { firebaseAuth } from '../config/firebase';
-import { EmailPasswordErrorMessage, EmailPasswordFormValue } from '../types/Forms';
+import { EmailPasswordFormValue } from '../types/Forms';
 import * as Yup from 'yup';
 
 enum SignUpFormFields {
@@ -51,25 +51,19 @@ export default function SignUpPageComponent(): JSX.Element {
                     <h1 className="w-full text-4xl tracking-widest text-center">Sign up here</h1>
                     <div className="w-full my-6">
                         <input
-                            name={ SignUpFormFields.email }
                             type="email"
                             className="p-2 rounded shadow w-full text-black"
                             placeholder="Email or username"
-                            value={ formik.values.email }
-                            onBlur={ formik.handleBlur }
-                            onChange={ formik.handleChange }
+                            { ...formik.getFieldProps(SignUpFormFields.email) }
                         />
                         { showErrorAfterFieldTouched(formik.errors.email) }
                     </div>
                     <div className="w-full my-6">
                         <input
-                            name={ SignUpFormFields.password }
                             type="password"
                             className="p-2 rounded shadow w-full text-black"
                             placeholder="Password"
-                            value={ formik.values.password }
-                            onBlur={ formik.handleBlur }
-                            onChange={ formik.handleChange }
+                            { ...formik.getFieldProps(SignUpFormFields.password) }
                         />
                         { showErrorAfterFieldTouched(formik.errors.password) }
                     </div>
