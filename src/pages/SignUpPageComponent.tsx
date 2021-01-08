@@ -1,13 +1,16 @@
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { firebaseAuth } from '../config/firebase';
 import * as Yup from 'yup';
+import { useHistory } from 'react-router-dom';
 
 enum FormFields {
     email = "email",
-    password = "password"
+    password = "password",
 }
 
 export default function SignUpPageComponent(): JSX.Element {
+
+    const history = useHistory();
 
     return (
         <Formik
@@ -19,11 +22,10 @@ export default function SignUpPageComponent(): JSX.Element {
             onSubmit={ (values, formikBag) => {
                 firebaseAuth.createUserWithEmailAndPassword(values.email, values.password)
                     .then((user) => {
-                        // Signed in 
-                        // ...
+                        history.replace("/");
                     })
                     .catch((error) => {
-                        formikBag.setFieldError(FormFields.email, error.message)
+                        formikBag.setFieldError(FormFields.email, error.message);
                     });
             } }
             validationSchema={

@@ -48,7 +48,6 @@ export default function LoginPageComponent() {
     }
 
     function onFormInputChange(event: React.ChangeEvent<HTMLInputElement>) {
-        console.log(event.target.value, event.target.name);
         setForm({ ...form, [event.target.name]: event.target.value })
     }
 
