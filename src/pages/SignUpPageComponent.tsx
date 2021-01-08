@@ -38,6 +38,14 @@ export default function SignUpPageComponent() {
             });
     }
 
+    function showErrorAfterFieldTouched(errorMessage: string | undefined) {
+        if (formik.touched.email && formik.touched.password) {
+            if (errorMessage === undefined) return (<p>Unknown error</p>)
+            return (<p>{ errorMessage }</p>)
+        }
+        return null;
+    }
+
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -60,9 +68,10 @@ export default function SignUpPageComponent() {
                             className="p-2 rounded shadow w-full text-black"
                             placeholder="Email or username"
                             value={ formik.values.email }
+                            onBlur={ formik.handleBlur }
                             onChange={ formik.handleChange }
                         />
-                        <p>{ formik.errors.email }</p>
+                        { showErrorAfterFieldTouched(formik.errors.email) }
                     </div>
                     <div className="w-full my-6">
                         <input
@@ -71,9 +80,10 @@ export default function SignUpPageComponent() {
                             className="p-2 rounded shadow w-full text-black"
                             placeholder="Password"
                             value={ formik.values.password }
+                            onBlur={ formik.handleBlur }
                             onChange={ formik.handleChange }
                         />
-                        <p>{ formik.errors.password }</p>
+                        { showErrorAfterFieldTouched(formik.errors.password) }
                     </div>
                     <button
                         type="submit"
