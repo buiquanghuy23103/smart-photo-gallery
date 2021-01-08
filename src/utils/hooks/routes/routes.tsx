@@ -1,6 +1,7 @@
 import GalleryPageComponent from "../../../pages/GalleryPageComponent";
 import HomePageComponent from "../../../pages/HomePageComponent";
 import LoginPageComponent from "../../../pages/LoginPageComponent";
+import SignUpPageComponent from "../../../pages/SignUpPageComponent";
 
 type Route = {
     name: string,
@@ -38,6 +39,13 @@ const routes: Route[] = [
         routeType: RouteType.guest,
         component: () => <LoginPageComponent />
     },
+    {
+        name: "Sign up",
+        path: "/signup",
+        exact: false,
+        routeType: RouteType.guest,
+        component: () => <SignUpPageComponent />
+    }
 ];
 
 export default routes;
