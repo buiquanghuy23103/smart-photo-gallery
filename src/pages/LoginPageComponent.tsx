@@ -1,12 +1,16 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom';
 import { firebaseAuth } from '../config/firebase';
-import { EmailPasswordFormValue } from '../types/Forms';
+
+type FormValues = {
+    email: string,
+    password: string,
+}
 
 export default function LoginPageComponent() {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState("");
-    const [form, setForm] = useState<EmailPasswordFormValue>({ email: "", password: "" });
+    const [form, setForm] = useState<FormValues>({ email: "", password: "" });
     const history = useHistory();
 
     function handleForm(e: React.FormEvent<HTMLFormElement>) {
