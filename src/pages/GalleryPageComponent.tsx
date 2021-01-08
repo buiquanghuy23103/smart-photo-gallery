@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
-import InfiniteScroll from 'react-infinite-scroll-component';
 import useDebounce from '../utils/hooks/useDebounce';
 import useFetchPicture from '../utils/hooks/useFetchPicture';
-import LoadingComponent from '../components/LoadingComponent';
 import { PictureListComponent } from '../components/PictureListComponent';
 
 export default function GalleryPageComponent() {
@@ -48,24 +46,11 @@ export default function GalleryPageComponent() {
                     onChange={ e => searchPictures(e.target.value) } />
             </div>
             <div className="flex m-10">
-                <div className="text-center">
-                    <div className="my-4">
-                        { showErrorMessage() }
-                    </div>
-                </div>
-                <section>
-                    <InfiniteScroll
-                        dataLength={ pictureList.length }
-                        next={ loadMore }
-                        hasMore={ true }
-                        loader={ <LoadingComponent /> }
-                    >
-
-                        <PictureListComponent
-                            pictureList={ pictureList }
-                            onItemClick={ removePicture } />
-                    </InfiniteScroll>
-                </section>
+                { showErrorMessage() }
+                <PictureListComponent
+                    pictureList={ pictureList }
+                    onItemClick={ removePicture }
+                    loadMore={ loadMore } />
             </div>
 
         </section>
