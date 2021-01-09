@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import "@tensorflow/tfjs";
 import * as mobilenet from '@tensorflow-models/mobilenet';
+import { math } from '@tensorflow/tfjs';
 
 type Prediction = {
     className: string,
@@ -27,14 +28,15 @@ export default function TensorFlowPageComponent() {
         }
     }
 
-    const predictionResults = predictions.length > 0 ? predictions.map(prediction => (
+    const predictionResults = predictions.length > 0 && predictions.map(prediction => (
         <div
             key={ prediction.className }
+            className="justify-between flex"
         >
             <p>{ prediction.className }</p>
-            <p>{ prediction.probability }</p>
+            <p>{ Math.floor(prediction.probability * 100) }%</p>
         </div>
-    )) : null;
+    ));
 
     return (
         <div className="flex justify-center">
