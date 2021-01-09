@@ -1,7 +1,9 @@
-import GalleryPageComponent from "../../../pages/GalleryPageComponent";
-import HomePageComponent from "../../../pages/HomePageComponent";
-import LoginPageComponent from "../../../pages/LoginPageComponent";
-import SignUpPageComponent from "../../../pages/SignUpPageComponent";
+import React from "react";
+import GalleryPageComponent from "../../pages/GalleryPageComponent";
+import HomePageComponent from "../../pages/HomePageComponent";
+import LoginPageComponent from "../../pages/LoginPageComponent";
+import SignUpPageComponent from "../../pages/SignUpPageComponent";
+
 
 type Route = {
     name: string,

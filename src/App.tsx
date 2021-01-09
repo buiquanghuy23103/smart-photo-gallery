@@ -6,17 +6,17 @@ import {
   Route,
   Switch
 } from 'react-router-dom';
-import routes, { RouteType } from './utils/hooks/routes/routes';
 import HeaderComponent from './components/HeaderComponent';
 import React, { useEffect, useState } from 'react';
 import auth from 'firebase';
 import { firebaseAuth } from './config/firebase';
 import { AppContext, AppContextInterface } from './store/AppContext';
-import AuthRoute from './utils/hooks/routes/AuthRoute';
-import GuestRoute from './utils/hooks/routes/GuestRoute';
 import LoadingComponent from './components/LoadingComponent';
 import NotFoundPageComponent from './pages/NotFoundPageComponent';
 import { motion } from 'framer-motion';
+import routes, { RouteType } from './utils/routes/routes';
+import AuthRoute from './utils/routes/AuthRoute';
+import GuestRoute from './utils/routes/GuestRoute';
 
 function App(): JSX.Element {
 
