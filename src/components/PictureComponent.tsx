@@ -51,10 +51,11 @@ export default function PictureComponent(props: PictureProps) {
             onMouseEnter={ handleMouseEnter }
             onMouseLeave={ handleMouseLeave }
         >
-            {predictions.length > 0 &&
+            {(predictions.length > 0 || isLoading) &&
 
                 <span
                     className="ml-5 absolute bg-gray-800 text-white rounded-lg shadow px-2">
+                    { isLoading && (<p>Loading...</p>) }
                     { predictionResults }
                 </span>
             }
