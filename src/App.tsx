@@ -16,6 +16,7 @@ import AuthRoute from './utils/hooks/routes/AuthRoute';
 import GuestRoute from './utils/hooks/routes/GuestRoute';
 import LoadingComponent from './components/LoadingComponent';
 import NotFoundPageComponent from './pages/NotFoundPageComponent';
+import { motion } from 'framer-motion';
 
 function App(): JSX.Element {
 
@@ -76,15 +77,34 @@ function App(): JSX.Element {
                   path={ route.path }
                   exact={ route.exact }
                   component={ route.component }
-                />);
-
+                >
+                  <motion.div
+                    initial={ { x: 200 } }
+                    animate={ {
+                      x: 0,
+                      transition: { duration: 1 }
+                    } }
+                  >
+                    <route.component />
+                  </motion.div>
+                </Route>);
               default:
                 return (<Route
                   key={ route.path }
                   path={ route.path }
                   exact={ route.exact }
                   component={ route.component }
-                />);
+                >
+                  <motion.div
+                    initial={ { x: 200 } }
+                    animate={ {
+                      x: 0,
+                      transition: { duration: 1 }
+                    } }
+                  >
+                    <route.component />
+                  </motion.div>
+                </Route>);
             }
           }) }
 
