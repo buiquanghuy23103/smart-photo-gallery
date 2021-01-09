@@ -26,5 +26,5 @@ export default function useTfClassify() {
         }
     }
 
-    return [isLoading, predictions, predict] as const;
+    return [predict, isLoading, predictions, setPredictions] as const;
 }

@@ -13,7 +13,7 @@ export default function PictureComponent(props: PictureProps) {
     const [isHovering, setIsHovering] = useState(false);
 
     const imgRef = useRef<HTMLImageElement | null>(null);
-    const [isLoading, predictions, predict] = useTfClassify();
+    const [predict, isLoading, predictions, setPredictions] = useTfClassify();
 
     function handleMouseEnter() {
         setIsHovering(true);
@@ -54,7 +54,9 @@ export default function PictureComponent(props: PictureProps) {
             {(predictions.length > 0 || isLoading) &&
 
                 <span
-                    className="ml-5 absolute bg-gray-800 text-white rounded-lg shadow px-2">
+                    className="ml-5 absolute bg-gray-800 text-white rounded-lg shadow px-2"
+                    onClick={ () => setPredictions([]) }
+                >
                     { isLoading && (<p>Loading...</p>) }
                     { predictionResults }
                 </span>

@@ -5,7 +5,7 @@ import useTfClassify from '../utils/hooks/useTfClassify';
 export default function TensorFlowPageComponent() {
     const imageUrl = "https://images.unsplash.com/photo-1610140755445-94cafe81ff9d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MXwxOTQzNjV8MHwxfGFsbHw3fHx8fHx8Mnw&ixlib=rb-1.2.1&q=80&w=1080"
     const imgRef = useRef<HTMLImageElement | null>(null);
-    const [isLoading, predictions, predict] = useTfClassify();
+    const [predict, isLoading, predictions, setPredictions] = useTfClassify();
 
     const predictionResults = predictions.length > 0 && predictions.map(prediction => (
         <div
