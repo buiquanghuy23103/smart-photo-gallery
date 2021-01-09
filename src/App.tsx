@@ -17,6 +17,7 @@ import { motion } from 'framer-motion';
 import routes, { RouteType } from './utils/routes/routes';
 import AuthRoute from './utils/routes/AuthRoute';
 import GuestRoute from './utils/routes/GuestRoute';
+import AnimatedRoute from './utils/routes/AnimatedRoute';
 
 function App(): JSX.Element {
 
@@ -60,8 +61,10 @@ function App(): JSX.Element {
                   key={ route.path }
                   path={ route.path }
                   exact={ route.exact }
-                  component={ route.component }
-                />);
+                >
+                  <route.component />
+                </AuthRoute>
+                );
 
               case RouteType.guest:
                 return (<GuestRoute
@@ -69,34 +72,20 @@ function App(): JSX.Element {
                   path={ route.path }
                   exact={ route.exact }
                 >
-                  <motion.div
-                    initial={ { x: 200 } }
-                    animate={ {
-                      x: 0,
-                      transition: { duration: 1 }
-                    } }
-                  >
-                    <route.component />
-                  </motion.div>
+
+                  <route.component />
                 </GuestRoute>);
 
               case RouteType.default:
-                return (<Route
+                return (<AnimatedRoute
                   key={ route.path }
                   path={ route.path }
                   exact={ route.exact }
-                  component={ route.component }
                 >
-                  <motion.div
-                    initial={ { x: 200 } }
-                    animate={ {
-                      x: 0,
-                      transition: { duration: 1 }
-                    } }
-                  >
-                    <route.component />
-                  </motion.div>
-                </Route>);
+
+                  <route.component />
+
+                </AnimatedRoute>);
               default:
                 return (<Route
                   key={ route.path }
