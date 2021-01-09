@@ -3,7 +3,7 @@ import { Picture } from "../types/PictureResponseTypes";
 
 type PictureProps = {
     picture: Picture,
-    onClick: () => void
+    removePicture: () => void,
 };
 
 export default function PictureComponent(props: PictureProps) {
@@ -25,21 +25,19 @@ export default function PictureComponent(props: PictureProps) {
     }
 
     return (
-        <div className="w-1/3 p-1 border my-4 flex justify-center">
-            <div className="relative"
-                onMouseEnter={ handleMouseEnter }
-                onMouseLeave={ handleMouseLeave }>
-                <i className={ showHideIcon() }
-                    onClick={ () => props.onClick() } />
-                <img
-                    src={ props.picture.urls.regular }
-                    alt={ props.picture.description }
-                    width={ props.picture.width }
-                    height="auto"
+        <div className="relative"
+            onMouseEnter={ handleMouseEnter }
+            onMouseLeave={ handleMouseLeave }
+        >
+            <i className={ showHideIcon() }
+                onClick={ () => props.removePicture() } />
+            <img
+                src={ props.picture.urls.regular }
+                alt={ props.picture.description }
+                width={ props.picture.width }
+                height="auto"
 
-                />
-            </div>
-
+            />
         </div>
     )
 }

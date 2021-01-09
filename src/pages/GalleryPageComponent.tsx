@@ -49,7 +49,7 @@ export default function GalleryPageComponent() {
                 { showErrorMessage() }
                 <PictureListComponent
                     pictureList={ pictureList }
-                    onItemClick={ removePicture }
+                    removePicture={ removePicture }
                     loadMore={ loadMore } />
             </div>
 
