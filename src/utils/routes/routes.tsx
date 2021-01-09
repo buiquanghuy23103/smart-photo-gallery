@@ -3,6 +3,7 @@ import GalleryPageComponent from "../../pages/GalleryPageComponent";
 import HomePageComponent from "../../pages/HomePageComponent";
 import LoginPageComponent from "../../pages/LoginPageComponent";
 import SignUpPageComponent from "../../pages/SignUpPageComponent";
+import TensorFlowPageComponent from "../../pages/TensorFlowPageComponent";
 
 
 type Route = {
@@ -47,7 +48,14 @@ const routes: Route[] = [
         exact: false,
         routeType: RouteType.guest,
         component: () => <SignUpPageComponent />
-    }
+    },
+    {
+        name: "Tensor Flow",
+        path: "/tensorflow",
+        exact: false,
+        routeType: RouteType.default,
+        component: () => <TensorFlowPageComponent />
+    },
 ];
 
 export default routes;

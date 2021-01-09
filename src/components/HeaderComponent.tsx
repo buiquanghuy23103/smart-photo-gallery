@@ -22,23 +22,26 @@ export default function HeaderComponent() {
         <nav className="p-3 bg-gray-900 text-white flex justify-between">
             <ul className="px-10 flex">
                 <li className="mr-5">
-                    <NavLink exact activeClassName="text-blue-600 text-bold" to="/">Home</NavLink>
+                    <NavLink exact activeClassName="text-blue-300 text-bold" to="/">Home</NavLink>
+                </li>
+                <li className="mr-5">
+                    <NavLink activeClassName="text-blue-300 text-bold" to="/gallery">Gallery</NavLink>
                 </li>
                 <li>
-                    <NavLink activeClassName="text-blue-600 text-bold" to="/gallery">Gallery</NavLink>
+                    <NavLink activeClassName="text-blue-300 text-bold" to="/tensorflow">Tensor Flow</NavLink>
                 </li>
             </ul>
             <ul className="px-10 flex">
                 <li>
                     { context?.isLoggedIn ?
                         (<button onClick={ logout }>Logout</button>) :
-                        (<NavLink activeClassName="text-blue-600 text-bold" to="/login">Login</NavLink>)
+                        (<NavLink activeClassName="text-blue-300 text-bold" to="/login">Login</NavLink>)
                     }
                 </li>
                 <li className="ml-5">
                     { context?.isLoggedIn ?
                         (null) :
-                        (<NavLink activeClassName="text-blue-600 text-bold" to="/signup">Sign up</NavLink>)
+                        (<NavLink activeClassName="text-blue-300 text-bold" to="/signup">Sign up</NavLink>)
                     }
                 </li>
             </ul>
