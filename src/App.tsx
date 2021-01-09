@@ -68,8 +68,17 @@ function App(): JSX.Element {
                   key={ route.path }
                   path={ route.path }
                   exact={ route.exact }
-                  component={ route.component }
-                />);
+                >
+                  <motion.div
+                    initial={ { x: 200 } }
+                    animate={ {
+                      x: 0,
+                      transition: { duration: 1 }
+                    } }
+                  >
+                    <route.component />
+                  </motion.div>
+                </GuestRoute>);
 
               case RouteType.default:
                 return (<Route

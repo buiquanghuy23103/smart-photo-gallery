@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { Children, useContext } from 'react'
 import { Redirect, Route, RouteProps } from 'react-router-dom';
 import { AppContext } from '../../../store/AppContext';
 
@@ -9,5 +9,5 @@ export default function GuestRoute(props: RouteProps) {
         return <Redirect to="/" />
     }
 
-    return <Route { ...props } />
+    return <Route { ...props } >{ props.children }</Route>
 }
