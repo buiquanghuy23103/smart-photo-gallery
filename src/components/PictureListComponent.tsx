@@ -25,7 +25,7 @@ export function PictureListComponent(props: PictureListProps) {
 
     return (
         <AnimateSharedLayout>
-
+            {/* TODO: Fix freezing infinite scrolling when there are 5 pictures in a roll */ }
             <InfiniteScroll
                 dataLength={ props.pictureList.length }
                 next={ props.loadMore }
@@ -37,7 +37,7 @@ export function PictureListComponent(props: PictureListProps) {
                     props.pictureList.map(picture => {
                         return (
                             <motion.div
-                                className="w-1/5 p-1 border my-4 flex justify-center"
+                                className="w-1/4 p-1 border my-4 flex justify-center"
                                 key={ picture.id }
                                 layoutId={ picture.id }
                                 onClick={ () => showPreview(picture) }
@@ -59,13 +59,14 @@ export function PictureListComponent(props: PictureListProps) {
                             className="fixed h-full w-full flex justify-center items-center top-0 left-0 z-40"
                             onClick={ hidePreview }
                             layoutId={ selectedPicture.id }
+                            exit={ { opacity: 0 } }
                         >
-                            <div className="bg-white">
+                            <div className="w-1/3 bg-white">
                                 <img
                                     src={ selectedPicture.urls.regular }
                                     alt={ selectedPicture.description }
                                     className="rounded-lg"
-                                    width="300"
+                                    width="100%"
                                     height="auto"
                                 />
                             </div>
