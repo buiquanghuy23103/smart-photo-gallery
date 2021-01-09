@@ -40,11 +40,11 @@ export function PictureListComponent(props: PictureListProps) {
                                 className="w-1/4 p-1 border my-4 flex justify-center"
                                 key={ picture.id }
                                 layoutId={ picture.id }
-                                onClick={ () => showPreview(picture) }
                             >
                                 <PictureComponent
                                     picture={ picture }
                                     removePicture={ () => props.removePicture(picture.id) }
+                                    showPreview={ showPreview }
                                 />
                             </motion.div>
                         )
@@ -68,6 +68,7 @@ export function PictureListComponent(props: PictureListProps) {
                                     className="rounded-lg"
                                     width="100%"
                                     height="auto"
+                                    crossOrigin="anonymous"
                                 />
                             </div>
                         </motion.section>
