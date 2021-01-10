@@ -1,5 +1,7 @@
 import { motion } from 'framer-motion';
 import { Route, RouteProps } from 'react-router-dom';
+import React from 'react';
+
 
 
 export default function AnimatedRoute({ children, ...rest }: RouteProps) {

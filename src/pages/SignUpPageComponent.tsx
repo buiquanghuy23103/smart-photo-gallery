@@ -2,6 +2,8 @@ import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { firebaseAuth } from '../config/firebase';
 import * as Yup from 'yup';
 import { useHistory } from 'react-router-dom';
+import React from 'react';
+
 
 enum FormFields {
     email = "email",

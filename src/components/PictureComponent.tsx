@@ -1,6 +1,8 @@
 import { useRef, useState } from "react";
 import { Picture } from "../types/PictureResponseTypes";
 import useTfClassify from "../utils/hooks/useTfClassify";
+import React from 'react';
+
 
 type PictureProps = {
     picture: Picture,
