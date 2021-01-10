@@ -16,7 +16,7 @@ export default function useFetchPicture(query: string | null) {
     }
 
     function downloadPictures() {
-        const api = !!query ? `/search/photos?query=${query}&` : "/photos?"
+        const api = query ? `/search/photos?query=${query}&` : "/photos?"
         const url = `${BASE_URL}${api}client_id=${PUBLIC_KEY}&query=${query}&page=${page}`;
 
         console.log(url);
